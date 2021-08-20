@@ -34,7 +34,8 @@ int main(int argc, const char* argv[]) {
   std::shared_ptr<Tensor> outputUser(new Tensor(output, MNN::Tensor::CAFFE));
   output->copyToHostTensor(outputUser.get());
   for (int i = 0; i < 10; i++) {
-    MNN_PRINT("output: %f\n", output->host<float>()[i]);
+    // 之前这一步写错了，写成了 device tensor
+    MNN_PRINT("output: %f\n", outputUser->host<float>()[i]);
   }
   return 0;
 }
